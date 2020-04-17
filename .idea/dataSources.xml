@@ -7,5 +7,11 @@
       <jdbc-driver>com.dbschema.MongoJdbcDriver</jdbc-driver>
       <jdbc-url>mongodb://localhost:27017/currrates</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="heroku_497b0x55@ds211648.mlab.com" uuid="3b9d0c2a-c290-47ed-a72d-af78b2e7b5bf">
+      <driver-ref>mongo</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.dbschema.MongoJdbcDriver</jdbc-driver>
+      <jdbc-url>mongodb://ds211648.mlab.com:11648/heroku_497b0x55</jdbc-url>
+    </data-source>
   </component>
 </project>
