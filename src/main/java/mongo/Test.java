@@ -5,11 +5,12 @@ import com.google.gson.JsonElement;
 import com.mongodb.*;
 import com.mongodb.util.JSON;
 import mongo.model.CurrRate;
+import mongo.model.Data;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,33 +21,33 @@ public class Test {
 
         MongoClient mongoClient = new MongoClient("localhost", 27017);
         DB database = mongoClient.getDB("currrates");
-        DBCollection collection = database.getCollection("currrates");
-        //System.out.println(collection.findOne());
-        int[] arr = {840,978};
-        BasicDBObject inQuery = new BasicDBObject();
-        inQuery.put("r030", new BasicDBObject("$in", arr));
-
-        BasicDBObject andQuery = new BasicDBObject();
-        List<BasicDBObject> obj = new ArrayList<>();
-        obj.add(new BasicDBObject(new BasicDBObject("r030", true)
-                .append("txt", true)
-                .append("rate", true)
-                .append("cc", true)
-                .append("exchangedate", true)));
-        obj.add(new BasicDBObject("r030", new BasicDBObject("$in", arr)));
-        andQuery.put("$and", obj);
-
-        Gson gson = new Gson();
-        List<CurrRate> currRates = new ArrayList<>();
-
-        DBCursor cursor = collection.find(andQuery);
-        while(cursor.hasNext()) {
-            System.out.println(cursor.next());
-            CurrRate currRate = gson.fromJson(cursor.next().toString(), CurrRate.class);
-            currRates.add(currRate);
-        }
-        System.out.println("=======================================================");
-        System.out.println(currRates);
+        DBCollection collection = database.getCollection("data");
+//        //System.out.println(collection.findOne());
+//        int[] arr = {840,978};
+//        BasicDBObject inQuery = new BasicDBObject();
+//        inQuery.put("r030", new BasicDBObject("$in", arr));
+//
+//        BasicDBObject andQuery = new BasicDBObject();
+//        List<BasicDBObject> obj = new ArrayList<>();
+//        obj.add(new BasicDBObject(new BasicDBObject("r030", true)
+//                .append("txt", true)
+//                .append("rate", true)
+//                .append("cc", true)
+//                .append("exchangedate", true)));
+//        obj.add(new BasicDBObject("r030", new BasicDBObject("$in", arr)));
+//        andQuery.put("$and", obj);
+//
+//        Gson gson = new Gson();
+//        List<CurrRate> currRates = new ArrayList<>();
+//
+//        DBCursor cursor = collection.find(andQuery);
+//        while(cursor.hasNext()) {
+//            System.out.println(cursor.next());
+//            CurrRate currRate = gson.fromJson(cursor.next().toString(), CurrRate.class);
+//            currRates.add(currRate);
+//        }
+//        System.out.println("=======================================================");
+//        System.out.println(currRates);
 
 //        DBCursor cursor = collection.find(new BasicDBObject("r030", true)
 //                                              .append("txt", true)
@@ -81,21 +82,23 @@ public class Test {
 //        document.put("name", "Shubham");
 //        document.put("company", "Baeldung");
 
-//        Gson gson = new Gson();
+        Gson gson = new Gson();
 //        BufferedReader bufferedReader = new BufferedReader(
 //                                        new InputStreamReader(
 //                                        new URL("https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date=20200416&json").openStream()));
-//
-//        List<CurrRate> currRates = Arrays.asList(gson.fromJson(bufferedReader, CurrRate[].class));
-//
-//        DBObject dbObject;
-//
-//        for (CurrRate currRate : currRates) {
-//            dbObject = (DBObject) JSON.parse(currRate.toString());
-//                        collection.insert(dbObject);
-//        }
-//
-//        currRates.forEach(System.out::println);
+
+
+        Reader x = new InputStreamReader(new FileInputStream("C:/Users/WIN72/OneDrive/Рабочий стол/JSON.txt"), "Cp1251");
+        List<Data> currRates = Arrays.asList(gson.fromJson(x, Data[].class));
+        //currRates.forEach(System.out::println);
+        DBObject dbObject;
+
+        for (Data currRate : currRates) {
+            dbObject = (DBObject) JSON.parse(currRate.toString());
+                        collection.insert(dbObject);
+        }
+
+        //currRates.forEach(System.out::println);
         
     }
 }
