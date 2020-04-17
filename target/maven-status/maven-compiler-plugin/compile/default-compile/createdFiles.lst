@@ -3,5 +3,6 @@ mongo\controller\Controller.class
 mongo\model\CurrRate.class
 mongo\Test.class
 mongo\service\CurrRateService.class
+mongo\model\Data.class
 mongo\repository\CurrencyRepository.class
 mongo\service\CurrRatesServiceImpl.class
