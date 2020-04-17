@@ -22,7 +22,7 @@ public class Controller {
     @Autowired
     CurrRateService currRateService;
 
-    @GetMapping(value= "/addall")
+    @RequestMapping(value= "/addall")
     public String createAll(Model model) throws IOException {
         Gson gson = new Gson();
         BufferedReader bufferedReader = new BufferedReader(
@@ -36,7 +36,7 @@ public class Controller {
         return "index";
     }
 
-    @GetMapping (value= "/deleteall")
+    @RequestMapping (value= "/deleteall")
     public String deleteAll() {
         currRateService.deleteAll();
         return "redirect:/";
