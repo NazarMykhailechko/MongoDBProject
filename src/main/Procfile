@@ -1,0 +1,1 @@
+web: java -Dserver.port=$PORT -jar target/MongoDBproject-1.0-SNAPSHOT.war

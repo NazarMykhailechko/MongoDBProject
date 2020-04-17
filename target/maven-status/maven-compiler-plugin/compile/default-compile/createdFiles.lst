@@ -1,0 +1,7 @@
+mongo\SpringBootRun.class
+mongo\controller\Controller.class
+mongo\model\CurrRate.class
+mongo\Test.class
+mongo\service\CurrRateService.class
+mongo\repository\CurrencyRepository.class
+mongo\service\CurrRatesServiceImpl.class
