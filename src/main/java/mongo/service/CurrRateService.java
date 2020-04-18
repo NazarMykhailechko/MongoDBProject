@@ -15,5 +15,6 @@ public interface CurrRateService {
     Collection<CurrRate> getAllEmployees();
     void delete(int id);
     void deleteAll();
+    List<CurrRate> showAll();
 
 }

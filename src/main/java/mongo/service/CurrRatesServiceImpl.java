@@ -44,4 +44,9 @@ public class CurrRatesServiceImpl implements CurrRateService {
     public void deleteAll() {
         currencyRepository.deleteAll();
     }
+
+    @Override
+    public List<CurrRate> showAll() {
+        return currencyRepository.findAll();
+    }
 }

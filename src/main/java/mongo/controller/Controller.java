@@ -27,19 +27,25 @@ public class Controller {
         Gson gson = new Gson();
         BufferedReader bufferedReader = new BufferedReader(
                                         new InputStreamReader(
-                                        new URL("https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date=20200416&json").openStream()));
+                                        new URL("https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date=20200415&json").openStream()));
 
         List<CurrRate> currRates = Arrays.asList(gson.fromJson(bufferedReader, CurrRate[].class));
         currRates.forEach(System.out::println);
         currRateService.addAll(currRates);
-        model.addAttribute("currRateList", currRates);
-        return "index";
+        //model.addAttribute("currRateList", currRates);
+        return "redirect:/";
     }
 
     @RequestMapping (value= "/deleteall")
     public String deleteAll() {
         currRateService.deleteAll();
         return "redirect:/";
+    }
+
+    @RequestMapping (value= "/")
+    public String home(Model model) {
+        model.addAttribute("currRateList", currRateService.showAll());
+        return "index";
     }
 
 }
